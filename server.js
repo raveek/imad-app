@@ -5,20 +5,41 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleOne = {
+var articles = {
+    article-one :{
     title: 'Article One | Ravi K',
-    heading : 'Artical One',
-    date : '8 Feb ,2018',
-    content: `<p>
-                This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
-              </p>
-              <p>
-                 This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
-              </p>
-              <p>
-                This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
-              </p>`
-};
+        heading : 'Artical One',
+        date : '8 Feb ,2018',
+        content: `<p>
+                    This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
+                  </p>`
+    },
+    article-two:{
+        title: 'Article Two | Ravi K',
+        heading : 'Artical Two',
+        date : '8 Feb ,2018',
+        content: `<p>
+                    This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
+                  </p>
+                  <p>
+                     This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
+                  </p>`
+    },
+    article-three : {
+        title: 'Article Three | Ravi K',
+        heading : 'Artical Three',
+        date : '8 Feb ,2018',
+        content: `<p>
+                    This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
+                  </p>
+                  <p>
+                     This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
+                  </p>
+                  <p>
+                    This is sample text just to demonstrate. This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.This is sample text just to demonstrate.
+                  </p>`
+    }
+}
 
 function createTemplate (data) {
     var title = data.title;
@@ -39,6 +60,7 @@ function createTemplate (data) {
                 <dev>
                     <a href ="/"> Home </a>
                 </dev>
+                <hr/>
                 <h3>
                     ${heading}
                 </h3>
@@ -58,24 +80,17 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one', function (req, res) {
-  res.send(createTemplate(articleOne));
+app.get('/:articleNames', function (req, res) {
+    var articleName=req.params.articleName;
+  res.send(createTemplate(articles[articleName]));
 });
 
 app.get('/article-two', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
+  res.send(createTemplate(articleTwo));
 });
 
 app.get('/article-three', function (req, res) {
-  res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
-
-app.get('/article-two', function (req, res) {
-  res.send('Article-two requested and will be server here');
-})
-
-;app.get('/article-three', function (req, res) {
-  res.send('Article-three requested and will be server here');
+ res.send(createTemplate(articleThree));
 });
 
 app.get('/ui/style.css', function (req, res) {
