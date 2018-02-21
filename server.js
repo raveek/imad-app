@@ -20,7 +20,7 @@ var content = {
               </p>`
 };
 
-function crateTemplate (data) {
+function createTemplate (data) {
     var title = data.title;
     var date = date.date;
     var heading = data.heading;
